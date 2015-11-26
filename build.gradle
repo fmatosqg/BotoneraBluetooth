@@ -1,0 +1,53 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.+'
+  }
+}
+
+apply plugin: 'android-sdk-manager'
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "20"  // run $ANDROID_HOME/tools/android and check which build tools are currently installed
+
+    defaultConfig {
+        applicationId "com.fmatos.amazingwallpapers"
+        minSdkVersion 18
+        targetSdkVersion 20
+        versionCode 6
+        versionName "1.2.0" // Amazon requires numbers only 
+
+        sourceSets {
+            main {
+                manifest.srcFile 'AndroidManifest.xml'
+                res.srcDirs = ['res']
+                main.java.srcDirs = ['src']
+            }
+        }
+        
+    }
+    buildTypes {
+        release {
+        }
+        debug {
+            debuggable true
+        }
+
+    }
+
+}
+
+dependencies {
+
+}
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
