@@ -27,12 +27,15 @@ public class DataTransferActivity extends Activity {
 	public static final UUID APP_UUID = UUID
 			.fromString("aeb9f938-a1a3-4947-ace2-9ebd0c67adf1");
 	private Button serverButton, clientButton;
+	private Button iiiihButton;
+
 	private TextView tv = null;
 	
 	private BluetoothAdapter mBluetoothAdapter = null;
 	private ConnectionThread mBluetoothConnection = null;
 	private String data;
 	private boolean mServerMode;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,15 @@ public class DataTransferActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				selectServer();
+			}
+		});
+
+		iiiihButton = (Button) findViewById(R.id.iiiih_button);
+		iiiihButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mBluetoothConnection.write("iiiiiih".getBytes());
+				play();
 			}
 		});
 
@@ -122,6 +134,8 @@ public class DataTransferActivity extends Activity {
 			case DATA_RECEIVED: {
 				data = (String) msg.obj;
 				tv.setText(data);
+
+				play();
 				if (mServerMode)
 					mBluetoothConnection.write(data.getBytes());
 			}
@@ -130,6 +144,11 @@ public class DataTransferActivity extends Activity {
 			}
 		}
 	};
+
+	private void play() {
+//		AudioManager mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+//		mAudioManager.playSoundEffect(AudioManager.FX_KEY_CLICK);
+	}
 
 	private void setButtonsEnabled(boolean state) {
 		serverButton.setEnabled(state);
