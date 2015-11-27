@@ -95,6 +95,18 @@ public class DataTransferActivity extends Activity {
 
 		mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
+//		loadSoundPool();
+
+		// Request audio focus
+		int result = mAudioManager.requestAudioFocus(afChangeListener,
+				AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
+
+		// Set to true if app has audio foucs
+		mCanPlayAudio = AudioManager.AUDIOFOCUS_REQUEST_GRANTED == result;
+
+	}
+
+	private void loadSoundPool() {
 		// Create a SoundPool
 		mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
@@ -119,13 +131,6 @@ public class DataTransferActivity extends Activity {
 				}
 			}
 		});
-
-		// Request audio focus
-		int result = mAudioManager.requestAudioFocus(afChangeListener,
-				AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-
-		// Set to true if app has audio foucs
-		mCanPlayAudio = AudioManager.AUDIOFOCUS_REQUEST_GRANTED == result;
 
 	}
 
@@ -175,6 +180,7 @@ public class DataTransferActivity extends Activity {
 		mAudioManager.setSpeakerphoneOn(true);
 		mAudioManager.loadSoundEffects();
 
+		loadSoundPool();
 	}
 
 	// Release resources & clean up
@@ -185,11 +191,14 @@ public class DataTransferActivity extends Activity {
 			mSoundPool.unload(mSoundId);
 			mSoundPool.release();
 			mSoundPool = null;
+
+			Log.d(TAG,"Sound pool release");
 		}
 
 		mAudioManager.setSpeakerphoneOn(false);
 		mAudioManager.unloadSoundEffects();
 
+		Log.d(TAG, "Sound pool pause unloaded");
 		super.onPause();
 	}
 
@@ -202,6 +211,9 @@ public class DataTransferActivity extends Activity {
 			if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
 				mAudioManager.abandonAudioFocus(afChangeListener);
 				mCanPlayAudio = false;
+				Log.d(TAG,"Audio focus loss");
+			} else {
+				Log.d(TAG,"Audio focus != loss " + focusChange);
 			}
 
 		}
