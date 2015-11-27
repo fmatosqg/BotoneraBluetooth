@@ -109,9 +109,9 @@ public class DataTransferActivity extends Activity {
 	private void loadSoundPool() {
 		// Create a SoundPool
 		mSoundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-
+	
 		// Load bubble popping sound into the SoundPool
-		mSoundId = mSoundPool.load(this, R.raw.slow_whoop_bubble_pop, 1);
+		mSoundId = mSoundPool.load(this, R.raw.uno, 1);
 
 		// Set an OnLoadCompleteListener on the SoundPool
 		mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
