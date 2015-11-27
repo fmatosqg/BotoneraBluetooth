@@ -1,9 +1,15 @@
 # BotoneraBluetooth
-Pair with your friend's phone and play sounds on HIS phone
+Pair with your friend's phone and play sounds on HIS phone.
+For android only.
 
-# Instructions
+# Building
 
-## Pair both android devices (EN)
+Compile it with <code>./gradlew build</code>.
+Install it with <code>adb install build/outputs/apk/BotoneraBluetooth-release-unsigned.apk</code>
+
+# Usage
+
+## Pair both android devices
 1. Open your bluetooth settings
 1. Turn on your bluetooth 
 1. Allow your phone to be discovered by tapping 'Only visible to paired devices'. This will start a 2 minute countdown (approximately)
